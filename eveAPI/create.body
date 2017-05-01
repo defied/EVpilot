@@ -1,0 +1,14 @@
+{
+        "severity": "Checkpoint",
+        "message": "startup",
+        "details":
+        {
+        },
+        "app_info":
+        {
+                "client_id": "-1",
+                "build_version": "CL 1138068 : LIVE",
+                "os_platform": "PS4",
+                "computer_name": "10.0.51.161",
+                "hmd_type": "Unknown"
+        }

@@ -1,0 +1,7 @@
+POST /live/client-event HTTP/1.1
+Content-Type: application/json
+vk-clientGuid: 002648492C0C14110033007A00A63C5E
+vk-version: CL 1138068 : LIVE
+Host: vkpilot.live-valkyrieapi.com
+User-Agent: -UE4/0.1 libhttp/4.55 (PlayStation 4)
+Connection: Keep-Alive
