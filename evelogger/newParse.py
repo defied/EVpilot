@@ -67,8 +67,8 @@ for fileName in glob.glob(args.directory+"/*.log"):
     output = json_list(fileName)
     try:
         if 'global_events' in output:
-            print output['global_events']
-            ret = myprint(output['global_events'])
+            print output["{}".format(args.object)]
+            ret = myprint(output["{}".format(args.object)])
             #print ret['wormhole']
     except:
         parsetype=False
