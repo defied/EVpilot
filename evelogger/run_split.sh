@@ -17,9 +17,15 @@ echo "Hit Enter to Continue"
 read
 
 # Split traffic going through port 8443 out to files in $DIR.
-sslsplit -D  -j /tmp/sslsplit/ -S ./ -k ca.key -c ca.crt https $HOST 8443 -S $DIR
+sslsplit -D  -j /home/defied/sslsplit/ -S ./ -k ca.key -c ca.crt https $HOST 8443 -S $DIR
 
 # On teardown, remove redirect rule from iptables.
+iptables -t nat -D PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
+sleep 1
+iptables -t nat -D PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
+sleep 1
+iptables -t nat -D PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
+sleep 1
 iptables -t nat -D PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
 sleep 1
 echo "##################"

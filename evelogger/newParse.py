@@ -33,13 +33,13 @@ import time
 # Set option flags.
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
-parser.add_argument('-l', '--list', help='list objects and components', required=False)
+parser.add_argument('-l', '--list', help='list objects and components')
 parser.add_argument('-o', '--object', help='Specify specific object to poll', default='')
 parser.add_argument('-d', '--directory', help='Directory to read', required=True)
 parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. Default is 9.', default='9')
 
 args = parser.parse_args()
-statLog.debug(args)
+#statLog.debug(args)
 
 def myprint(d):
     ret = ''
@@ -70,7 +70,7 @@ if args.list:
     json_list(args.directory)
 
 
-def cvs_write()
+def cvs_write():
     # open a file for writing
     file_data = open('/tmp/fileData.csv', 'w')
     # create the csv writer object
