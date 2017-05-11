@@ -13,7 +13,7 @@
 #       Need to find specific context to define these.
 #           Try looking for '"branch_name": "ValkyrieLIVE"'
 #           Next get httplib/urllib online to download these files to a custome dir structure.
-#   Add Options parser to define:
+#   Add arg parser to:
 #       Relate User
 #       Obfuscate User
 #       Directory to parse.
@@ -51,15 +51,16 @@ def myprint(d):
             ret = ret + "    {0} : {1}".format(k, v)
 
 def json_list(directory):
-    for fileName in glob.glob(logPath+"/*.log"):
+    for fileName in glob.glob(directory+"/*.log"):
         fileIn = open("{}".format(fileName), 'r')
         fileRead = fileIn.read()
         fileIn.close()
         file_parsed = json.loads(fileRead)
         objectOut = myprint(file_parsed)
+        return objectOut
 
 def json_parser(objects, lists, file):
-    fileIn = open("{}".format(fileName), 'r')
+    fileIn = open("{}".format(file), 'r')
     fileRead = fileIn.read()
     fileIn.close()
     file_parsed = json.loads(fileRead)
