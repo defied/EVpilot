@@ -29,16 +29,26 @@ import os
 import glob
 import sys
 import time
+import string
 
-def json_list(directory):
-    for fileName in glob.glob(directory+"/*.log"):
+def json_list(fileName):
+    try:
         fileIn = open("{}".format(fileName), 'r')
         fileRead = fileIn.read()
-        fileRead = '{' + re.split('{', fileIn, maxsplit=1)[1]
+        try:
+            fileRead = '{' + re.split('{', fileRead, maxsplit=1)[1]
+        except:
+            notSoMuch=False
         fileIn.close()
-        file_parsed = json.loads(fileRead)
-        objectOut = myprint(file_parsed)
-        return objectOut
+        try:
+            file_parsed = json.loads(fileRead)
+            return file_parsed
+        except:
+            parseFaile=False
+        #objectOut = myprint(file_parsed)
+        #return objectOut
+    except:
+        Fail=True
 
 # Set option flags.
 parser = argparse.ArgumentParser()
@@ -51,6 +61,16 @@ parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. 
 args = parser.parse_args()
 #statLog.debug(args)
 
+
+for fileName in glob.glob(args.directory+"/*.log"):
+    #print "File is {}".format(fileName)
+    output = json_list(fileName)
+    try:
+        if 'global_events' in output:
+          print output['global_events']
+    except:
+        parsetype=False
+
 def myprint(d):
     ret = ''
     for k, v in d.iteritems():
@@ -59,7 +79,6 @@ def myprint(d):
             myprint(v)
         else:
             ret = ret + "    {0} : {1}".format(k, v)
-
 
 
 def json_parser(objects, lists, file):
