@@ -30,6 +30,16 @@ import glob
 import sys
 import time
 
+def json_list(directory):
+    for fileName in glob.glob(directory+"/*.log"):
+        fileIn = open("{}".format(fileName), 'r')
+        fileRead = fileIn.read()
+        fileRead = '{' + re.split('{', fileIn, maxsplit=1)[1]
+        fileIn.close()
+        file_parsed = json.loads(fileRead)
+        objectOut = myprint(file_parsed)
+        return objectOut
+
 # Set option flags.
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
@@ -50,14 +60,7 @@ def myprint(d):
         else:
             ret = ret + "    {0} : {1}".format(k, v)
 
-def json_list(directory):
-    for fileName in glob.glob(directory+"/*.log"):
-        fileIn = open("{}".format(fileName), 'r')
-        fileRead = fileIn.read()
-        fileIn.close()
-        file_parsed = json.loads(fileRead)
-        objectOut = myprint(file_parsed)
-        return objectOut
+
 
 def json_parser(objects, lists, file):
     fileIn = open("{}".format(file), 'r')
