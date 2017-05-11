@@ -25,6 +25,10 @@
 import json
 import re
 import csv
+import os
+import glob
+import sys
+import time
 
 fileName = 'AIPilots.json'
 
@@ -38,16 +42,14 @@ fi_data = file_parsed['aipilots'] #"{}".format(keyFlags)]
 
 file_data = open('/tmp/fileData.csv', 'w')
 
-# create the csv writer object
-
-csvwriter = csv.writer(file_data)
-
-count = 0
-
-for fi in fi_data:
-      if count == 0:
-             header = fi.keys()
-             csvwriter.writerow(header)
-             count += 1
-      csvwriter.writerow(fi.values())
-file_data.close()
+def cvs_write()
+    # create the csv writer object
+    csvwriter = csv.writer(file_data)
+    count = 0
+    for fi in fi_data:
+          if count == 0:
+                 header = fi.keys()
+                 csvwriter.writerow(header)
+                 count += 1
+          csvwriter.writerow(fi.values())
+    file_data.close()
