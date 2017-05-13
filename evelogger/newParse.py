@@ -31,6 +31,22 @@ import sys
 import time
 import string
 
+# Declare variables.
+ret = ''
+output = []
+
+# Set option flags.
+parser = argparse.ArgumentParser()
+parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
+parser.add_argument('-l', '--list', help='list objects and components', default='None')
+parser.add_argument('-o', '--out', help='Where to write out JSON information', action='store_true', default=False)
+parser.add_argument('-d', '--directory', help='Log directory to read', required=True)
+parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. Default is 9.', default='9')
+
+args = parser.parse_args()
+#statLog.debug(args)
+
+
 def json_list(fileName):
     try:
         fileIn = open("{}".format(fileName), 'r')
@@ -44,56 +60,25 @@ def json_list(fileName):
             file_parsed = json.loads(fileRead)
             return file_parsed
         except:
-            parseFaile=False
-        #objectOut = myprint(file_parsed)
-        #return objectOut
+            parse=False
     except:
         Fail=True
-
-# Set option flags.
-parser = argparse.ArgumentParser()
-parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
-parser.add_argument('-l', '--list', help='list objects and components')
-parser.add_argument('-o', '--object', help='Specify specific object to poll', default='')
-parser.add_argument('-d', '--directory', help='Directory to read', required=True)
-parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. Default is 9.', default='9')
-
-args = parser.parse_args()
-#statLog.debug(args)
-
-
-for fileName in glob.glob(args.directory+"/*.log"):
-    #print "File is {}".format(fileName)
-    output = json_list(fileName)
-    try:
-        if 'global_events' in output:
-            print output["{}".format(args.object)]
-            ret = myprint(output["{}".format(args.object)])
-            #print ret['wormhole']
-    except:
-        parsetype=False
 
 def myprint(d):
     ret = ''
     for k, v in d.iteritems():
         if isinstance(v, dict):
-            ret = ret + "{0}".format(k)#d.iterkeys().next())
-            myprint(v)
+            ret = ret + "{0}".format(d.iterkeys().next())
+            #myprint(v)
         else:
-            ret = ret + "    {0} : {1}".format(k, v)
-
+            ret = ret + "{0}".format(d.iterkeys().next())
+        return ret
 
 def json_parser(objects, lists, file):
     fileIn = open("{}".format(file), 'r')
     fileRead = fileIn.read()
     fileIn.close()
     file_parsed = json.loads(fileRead)
-    fi_data = file_parsed['aipilots'] #"{}".format(keyFlags)]
-
-
-if args.list:
-    json_list(args.directory)
-
 
 def cvs_write():
     # open a file for writing
@@ -108,3 +93,49 @@ def cvs_write():
                  count += 1
           csvwriter.writerow(fi.values())
     file_data.close()
+
+def list_collector():
+    output = []
+    for fileName in glob.glob(args.directory+"/*.log"):
+        try:
+            output = json_list(fileName)
+            #print output
+        except:
+            angry=False
+            print "something broke"
+    return output
+
+# Gather the latest output:
+output = list_collector()
+
+# print "Checking list argument:\n    {}".format(args.list)
+for fileName in glob.glob(args.directory+"/*.log"):
+    try:
+        outputlist = json_list(fileName).keys()
+        output = json_list(fileName)
+        for i in output:
+            # List server
+            # if args.list in i:
+            #     print " "
+            #     print "####"
+            #     print output
+            if 'branch_name' in i:
+                print ""
+                print "####"
+                for files in output['files']:
+                    if args.out:
+                        placer=False
+                    print files['uri']
+
+                #print "Created on: {}".format(output['create_date'])
+            # print output['pilots'][0]['platform']
+            # print output['pilots'][0]['team_id']
+        # if 'all' not in args.list and args.object in output:
+        #     print "got a hit."
+        #     print output
+    except:
+        angry=False
+        #print "nope"
+if args.out:
+    print "Logging"
+
