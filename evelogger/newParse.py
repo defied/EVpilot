@@ -34,6 +34,12 @@ import string
 # Declare variables.
 ret = ''
 output = []
+livedir = '/Users/Dafydd/live/'
+
+# Check if outdir works.
+if os.path.isdir(livedir) == False:
+    print "Directory {} does not exist.".format(livedir)
+    sys.exit(165)
 
 # Set option flags.
 parser = argparse.ArgumentParser()
@@ -95,7 +101,7 @@ def cvs_write():
     file_data.close()
 
 def list_collector():
-    output = []
+    output = {}
     for fileName in glob.glob(args.directory+"/*.log"):
         try:
             output = json_list(fileName)
@@ -106,75 +112,131 @@ def list_collector():
     return output
 
 # Gather the latest output:
-output = list_collector()
+# output = list_collector()
+# print type(output)
+# for i in output['global_events']['wormhole']:
+#     print i
+    # if 'pilots' in i:
+    #     print "Got a hit"
+    #     print output
+
+
+def log_files(desc, output):
+    out=[]
+    f = open("{}{}.json".format(livedir,desc),"w+")
+    for i in output:
+        if "{}".format(desc) in i:
+            out = output
+            #print output
+    f.write("{}".format(out))
+    f.close()
 
 # print "Checking list argument:\n    {}".format(args.list)
+finaldata = []
 for fileName in glob.glob(args.directory+"/*.log"):
     try:
         outputlist = json_list(fileName).keys()
         output = json_list(fileName)
-        for i in output:
-            # List server
-            # if args.list in i:
-            #     print " "
-            #     print "####"
-            #     print output
-
-            # User loadout.
-            # if 'loadouts' in i:
-            #     print " "
-            #     print "####"
-            #     print output
-            # if 'visk' in i:
-            #     print " "
-            #     print "####"
-            #     print output
-            # if 'global_events' in i:
-            #     print " "
-            #     print "####"
-            #     print output
-            # if 'invites' in i:
-            #     print " "
-            #     print "####"
-            #     print output
-
-            # Needs more specific info.
-            if 'pilots' in i:
-                print " "
-                print "####"
-                print output
-
-            # if 'branch_name' in i:
-            #     for files in output['files']:
-            #         if args.out:
-            #             placer=False
-            #         print ""
-            #         print "####"
-            #         print files['uri']
-            # if 'client_type' in i:
-            #     for files in output['files']:
-            #         if args.out:
-            #             placer=False
-            #         print ""
-            #         print "####"
-            #         print files['uri']
-            # if 'branch_name' in i:
-            #     for files in output['files']:
-            #         if args.out:
-            #             placer=False
-            #         print ""
-            #         print "####"
-            #         print files['uri']
-
-                #print "Created on: {}".format(output['create_date'])
-            # print output['pilots'][0]['platform']
-            # print output['pilots'][0]['team_id']
-        # if 'all' not in args.list and args.object in output:
-        #     print "got a hit."
-        #     print output
+        #print output
     except:
         angry=False
-        #print "nope"
+        print "I hate you."
+    if output:
+        if output not in finaldata:
+            finaldata.append(output)
+
+desc= "FinalData"
+f = open("{}{}.json".format(livedir,desc),"w+")
+f.write("{}".format(finaldata))
+f.close()
+
+count = 0
+# countend = len(finaldata) - 1
+# for i in count:
+#     while count != countend:
+#         print "######################"
+#         print ''
+#         print finaldata[count]
+#         count = count + 1
+
+print finaldata[2]
+    #
+    # desc = 'loadouts'
+    # log_files(desc, output)
+    # desc = 'visk'
+    # log_files(desc, output)
+    # desc = 'global_events'
+    # log_files(desc, output)
+    # desc = 'invites'
+    # log_files(desc, output)
+    # desc = 'pilots'
+    # log_files(desc, output)
+    # Needs more specific info.
+    # if 'pilots' and 'current_bots' in i:
+    #     print " "
+    #     print "####"
+    #     print output
+
+    # Session Details.
+    # if 'pilots' and 'game_mode_unique_name' in i:
+    #     print ""
+    #     print "####"
+    #     print output
+
+    #Session summary.
+    # if 'pilots' and 'battle_uri' in i:
+    #     print ""
+    #     print "####"
+    #     print output
+
+    #Squad summary.
+    # if 'pilots' and 'squad_invites_uri' in i:
+    #     print ""
+    #     print "####"
+    #     print output
+
+    #Squad details.
+    # if 'pilots' and 'squad_pilot_uri' in i:
+    #     print ""
+    #     print "####"
+    #     print output
+
+    # if 'pilots' in i:
+    #     for files in output['pilots']:
+    #         if args.out:
+    #             placer=False
+    #         print ""
+    #         print "####"
+    #         print files
+
+    # Needs more definition.
+    # if 'pilots' in i:
+    #     print ""
+    #     print "####"
+    #     print output['pilots']
+
+    # if 'client_type' in i:
+    #     for files in output['files']:
+    #         if args.out:
+    #             placer=False
+    #         print ""
+    #         print "####"
+    #         print files['uri']
+    # if 'branch_name' in i:
+    #     for files in output['files']:
+    #         if args.out:
+    #             placer=False
+    #         print ""
+    #         print "####"
+    #         print files['uri']
+
+        #print "Created on: {}".format(output['create_date'])
+    # print output['pilots'][0]['platform']
+    # print output['pilots'][0]['team_id']
+# if 'all' not in args.list and args.object in output:
+#     print "got a hit."
+#     print output
+
 if args.out:
     print "Logging"
 
