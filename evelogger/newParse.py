@@ -119,13 +119,52 @@ for fileName in glob.glob(args.directory+"/*.log"):
             #     print " "
             #     print "####"
             #     print output
-            if 'branch_name' in i:
-                print ""
+
+            # User loadout.
+            # if 'loadouts' in i:
+            #     print " "
+            #     print "####"
+            #     print output
+            # if 'visk' in i:
+            #     print " "
+            #     print "####"
+            #     print output
+            # if 'global_events' in i:
+            #     print " "
+            #     print "####"
+            #     print output
+            # if 'invites' in i:
+            #     print " "
+            #     print "####"
+            #     print output
+
+            # Needs more specific info.
+            if 'pilots' in i:
+                print " "
                 print "####"
-                for files in output['files']:
-                    if args.out:
-                        placer=False
-                    print files['uri']
+                print output
+
+            # if 'branch_name' in i:
+            #     for files in output['files']:
+            #         if args.out:
+            #             placer=False
+            #         print ""
+            #         print "####"
+            #         print files['uri']
+            # if 'client_type' in i:
+            #     for files in output['files']:
+            #         if args.out:
+            #             placer=False
+            #         print ""
+            #         print "####"
+            #         print files['uri']
+            # if 'branch_name' in i:
+            #     for files in output['files']:
+            #         if args.out:
+            #             placer=False
+            #         print ""
+            #         print "####"
+            #         print files['uri']
 
                 #print "Created on: {}".format(output['create_date'])
             # print output['pilots'][0]['platform']
