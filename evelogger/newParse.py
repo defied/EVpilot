@@ -30,6 +30,7 @@ import glob
 import sys
 import time
 import string
+import io
 
 # Declare variables.
 ret = ''
@@ -121,45 +122,37 @@ def list_collector():
     #     print output
 
 
-def log_files(desc, output):
-    out=[]
-    f = open("{}{}.json".format(livedir,desc),"w+")
-    for i in output:
-        if "{}".format(desc) in i:
-            out = output
-            #print output
-    f.write("{}".format(out))
-    f.close()
+def log_files(desc, data):
+    with open("{}{}.json".format(livedir, header), 'w+') as f:
+        f.write(data)
+        f.close()
 
 # print "Checking list argument:\n    {}".format(args.list)
-finaldata = []
+
+# finaldata = []
+headlist = ['training', 'pilots']
 for fileName in glob.glob(args.directory+"/*.log"):
     try:
-        outputlist = json_list(fileName).keys()
         output = json_list(fileName)
-        #print output
+        for header in headlist:
+            if header in output:
+                printversion = ""
+                log_files(header, json.dumps(output, indent=4, sort_keys=True))
     except:
         angry=False
-        print "I hate you."
-    if output:
-        if output not in finaldata:
-            finaldata.append(output)
+        #print "I hate you."
 
-desc= "FinalData"
-f = open("{}{}.json".format(livedir,desc),"w+")
-f.write("{}".format(finaldata))
-f.close()
+print printversion
 
-count = 0
-# countend = len(finaldata) - 1
-# for i in count:
-#     while count != countend:
-#         print "######################"
-#         print ''
-#         print finaldata[count]
-#         count = count + 1
 
-print finaldata[2]
+# f = open("{}{}.json".format(livedir,desc),"w+")
+# f.write("{}".format(finaldata))
+# f.close()
+
+
+
+#for i in finaldata:
+#    print json.dumps(i)
     #
     # desc = 'loadouts'
     # log_files(desc, output)
