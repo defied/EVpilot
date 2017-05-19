@@ -33,6 +33,10 @@ import string
 import io
 
 # Declare variables.
+# Start with the components you want to pull from the output.
+headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads', 'kills', 'squad_id','battle_uri',
+            'active_battles_uri', 'heartbeat_count']
+
 ret = ''
 output = []
 livedir = '/Users/Dafydd/live/'
@@ -127,10 +131,7 @@ def log_files(desc, data):
         f.write(data)
         f.close()
 
-# print "Checking list argument:\n    {}".format(args.list)
-
-# finaldata = []
-headlist = ['training', 'pilots']
+printversion = ""
 for fileName in glob.glob(args.directory+"/*.log"):
     try:
         output = json_list(fileName)
@@ -141,14 +142,6 @@ for fileName in glob.glob(args.directory+"/*.log"):
     except:
         angry=False
         #print "I hate you."
-
-print printversion
-
-
-# f = open("{}{}.json".format(livedir,desc),"w+")
-# f.write("{}".format(finaldata))
-# f.close()
-
 
 
 #for i in finaldata:
