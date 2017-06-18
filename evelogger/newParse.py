@@ -39,7 +39,7 @@ headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads'
 
 ret = ''
 output = []
-livedir = '/Users/Dafydd/live/'
+livedir = '/var/www/html/evevalkyrie/livepilot/'
 
 # Check if outdir works.
 if os.path.isdir(livedir) == False:
@@ -142,7 +142,11 @@ for fileName in glob.glob(args.directory+"/*.log"):
     except:
         angry=False
         #print "I hate you."
-
+    try:
+        os.remove(fileName)
+    except:
+        angry=False
+        print "Error. Failed to remove file {}".format(fileName)
 
 #for i in finaldata:
 #    print json.dumps(i)
