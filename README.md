@@ -1,7 +1,9 @@
 ## EVpilot
 
 A utility that will parse through the E:V API and present information to the user in a readable format.
-You must install sslsplit
+#### You must install sslsplit
+
+#### iptables must be running.
 
 For Pilot updating, it's pretty simple:
 
