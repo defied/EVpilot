@@ -39,8 +39,8 @@ headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads'
 
 ret = ''
 output = []
-livedir = '/var/www/html/evevalkyrie/livepilot/'
-
+#livedir = '/var/www/html/evevalkyrie/livepilot/'
+livedir = sys.argv[1]
 # Check if outdir works.
 if os.path.isdir(livedir) == False:
     print "Directory {} does not exist.".format(livedir)
