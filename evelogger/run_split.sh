@@ -15,10 +15,9 @@ mkdir -p $DIR$SPLIT $DIR$EVE
 iptables -t nat -A PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
 sleep 1
 echo "##################"
+echo "Re-directing traffic"
 echo $(iptables -t nat -L | grep '8443')
 echo "##################"
-echo "Hit Enter to Continue"
-read
 
 # Split traffic going through port 8443 out to files in $DIR.
 sslsplit -D  -j $DIR$SPLIT -S ./ -k ca.key -c ca.crt https $HOST 8443 -S $DIR
@@ -33,6 +32,7 @@ sleep 1
 iptables -t nat -D PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
 sleep 1
 echo "##################"
+echo "Resetting itpables"
 echo $(iptables -t nat -L | grep '8443')
 echo "##################"
 

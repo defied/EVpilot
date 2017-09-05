@@ -31,19 +31,20 @@ import sys
 import time
 import string
 import io
+import update_pilots
 
 # Declare variables.
 # Start with the components you want to pull from the output.
 headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads', 'kills', 'squad_id','battle_uri',
             'active_battles_uri', 'heartbeat_count']
-
+fname=livedir + 'fullpilot.json'
 ret = ''
 output = []
 #livedir = '/var/www/html/evevalkyrie/livepilot/'
-livedir = sys.argv[1]
+
 # Check if outdir works.
 if os.path.isdir(livedir) == False:
-    print "Directory {} does not exist.".format(livedir)
+    print "Directory {} does not exist.\neg: /var/www/html/evevalkyrie/livepilot/".format(livedir)
     sys.exit(165)
 
 # Set option flags.
@@ -57,6 +58,7 @@ parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. 
 args = parser.parse_args()
 #statLog.debug(args)
 
+livedir = args.directory
 
 def json_list(fileName):
     try:
@@ -118,6 +120,8 @@ def list_collector():
 
 def log_files(desc, data):
     with open("{}{}.json".format(livedir, header), 'w+') as f:
+        if pilots in header:
+            update_pilots.update(data, fname)
         f.write(data)
         f.close()
 
@@ -141,10 +145,7 @@ while True:
         except:
             angry=False
             print "Error. Failed to remove file {}".format(fileName)
-        try:
-            os.popen('update_pilots.py')
-        except:
-            print('update_pilots.py not found.')
+
 
 
 
