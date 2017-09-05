@@ -129,6 +129,7 @@ if args.out:
     print "Logging"
 
 while True:
+    print("Looking for logs...")
     time.sleep(5)
     printversion = ""
     for fileName in glob.glob(args.directory+"/*.log"):
