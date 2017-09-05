@@ -5,8 +5,8 @@
 HIT=$(nslookup vkpilot.live-valkyrieapi.com | grep Address | grep -v '127.0' | cut -f 2 -d ' ')
 HIT=$(echo $HIT | sed -r 's/ /,/g')
 DIR='~/'
-EVE = 'eveLogger/'
-SPLIT = 'sslsplit/'
+EVE='eveLogger/'
+SPLIT='sslsplit/'
 HOST='1.2.3.4'
 
 mkdir -p $DIR$SPLIT $DIR$EVE
