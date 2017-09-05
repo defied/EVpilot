@@ -12,8 +12,9 @@ pfile = pilotFile.read()
 pilotFile.close()
 
 pjson=json.loads(pfile)
-
+ 
 fname='/var/www/html/evevalkyrie/livepilot/fullpilot.json'
+#fname='/var/www/html/evevalkyrie/livepilot/fullpilotTEST.json'
 os.path.isfile(fname)
 
 if not os.path.isfile(fname):
@@ -32,6 +33,7 @@ else:
     for i in pjson['pilots']:
         jsonfile['pilots'].insert(0, i)
     cleanup = { each['callsign'] : each for each in jsonfile['pilots'] }.values()
+    cleanup = sorted(cleanup, key=lambda k: k['pilot_id'], reverse=False)
     jsonfile['pilots']=cleanup
     with open(fname, 'w') as outfile:
         json.dump(jsonfile, outfile)
