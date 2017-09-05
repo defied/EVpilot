@@ -13,9 +13,8 @@ pilotFile.close()
 
 pjson=json.loads(pfile)
  
-fname='/var/www/html/evevalkyrie/livepilot/fullpilot.json'
+fname='~/fullpilot.json'
 #fname='/var/www/html/evevalkyrie/livepilot/fullpilotTEST.json'
-os.path.isfile(fname)
 
 if not os.path.isfile(fname):
     print "Creating {}".format(fname)

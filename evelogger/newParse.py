@@ -116,117 +116,35 @@ def list_collector():
             print "something broke"
     return output
 
-# Gather the latest output:
-# output = list_collector()
-# print type(output)
-# for i in output['global_events']['wormhole']:
-#     print i
-    # if 'pilots' in i:
-    #     print "Got a hit"
-    #     print output
-
-
 def log_files(desc, data):
     with open("{}{}.json".format(livedir, header), 'w+') as f:
         f.write(data)
         f.close()
 
-printversion = ""
-for fileName in glob.glob(args.directory+"/*.log"):
-    try:
-        output = json_list(fileName)
-        for header in headlist:
-            if header in output:
-                printversion = ""
-                log_files(header, json.dumps(output, indent=4, sort_keys=True))
-    except:
-        angry=False
-        #print "I hate you."
-    try:
-        os.remove(fileName)
-    except:
-        angry=False
-        print "Error. Failed to remove file {}".format(fileName)
-
-#for i in finaldata:
-#    print json.dumps(i)
-    #
-    # desc = 'loadouts'
-    # log_files(desc, output)
-    # desc = 'visk'
-    # log_files(desc, output)
-    # desc = 'global_events'
-    # log_files(desc, output)
-    # desc = 'invites'
-    # log_files(desc, output)
-    # desc = 'pilots'
-    # log_files(desc, output)
-    # Needs more specific info.
-    # if 'pilots' and 'current_bots' in i:
-    #     print " "
-    #     print "####"
-    #     print output
-
-    # Session Details.
-    # if 'pilots' and 'game_mode_unique_name' in i:
-    #     print ""
-    #     print "####"
-    #     print output
-
-    #Session summary.
-    # if 'pilots' and 'battle_uri' in i:
-    #     print ""
-    #     print "####"
-    #     print output
-
-    #Squad summary.
-    # if 'pilots' and 'squad_invites_uri' in i:
-    #     print ""
-    #     print "####"
-    #     print output
-
-    #Squad details.
-    # if 'pilots' and 'squad_pilot_uri' in i:
-    #     print ""
-    #     print "####"
-    #     print output
-
-    # if 'pilots' in i:
-    #     for files in output['pilots']:
-    #         if args.out:
-    #             placer=False
-    #         print ""
-    #         print "####"
-    #         print files
-
-    # Needs more definition.
-    # if 'pilots' in i:
-    #     print ""
-    #     print "####"
-    #     print output['pilots']
-
-    # if 'client_type' in i:
-    #     for files in output['files']:
-    #         if args.out:
-    #             placer=False
-    #         print ""
-    #         print "####"
-    #         print files['uri']
-    # if 'branch_name' in i:
-    #     for files in output['files']:
-    #         if args.out:
-    #             placer=False
-    #         print ""
-    #         print "####"
-    #         print files['uri']
-
-        #print "Created on: {}".format(output['create_date'])
-    # print output['pilots'][0]['platform']
-    # print output['pilots'][0]['team_id']
-# if 'all' not in args.list and args.object in output:
-#     print "got a hit."
-#     print output
-
 if args.out:
     print "Logging"
+
+while True:
+    printversion = ""
+    for fileName in glob.glob(args.directory+"/*.log"):
+        try:
+            output = json_list(fileName)
+            for header in headlist:
+                if header in output:
+                    printversion = ""
+                    log_files(header, json.dumps(output, indent=4, sort_keys=True))
+        except:
+            angry=False
+            #print "I hate you."
+        try:
+            os.remove(fileName)
+        except:
+            angry=False
+            print "Error. Failed to remove file {}".format(fileName)
+        try:
+            os.popen('update_pilots.py')
+        except:
+            print('update_pilots.py not found.')
+
+
 
