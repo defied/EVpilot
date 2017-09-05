@@ -120,6 +120,7 @@ def list_collector():
 def log_files(desc, data):
     with open("{}{}.json".format(livedir, header), 'w+') as f:
         if pilots in header:
+            print("Updating Pilot List")
             update_pilots.update(data, fname)
         f.write(data)
         f.close()
@@ -128,12 +129,15 @@ if args.out:
     print "Logging"
 
 while True:
+    time.sleep(5)
     printversion = ""
     for fileName in glob.glob(args.directory+"/*.log"):
+        print('Ingesting {}'.format(fileName))
         try:
             output = json_list(fileName)
             for header in headlist:
                 if header in output:
+                    print("Collecting {}".format(header))
                     printversion = ""
                     log_files(header, json.dumps(output, indent=4, sort_keys=True))
         except:
