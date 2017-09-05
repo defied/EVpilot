@@ -33,20 +33,6 @@ import string
 import io
 import update_pilots
 
-# Declare variables.
-# Start with the components you want to pull from the output.
-headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads', 'kills', 'squad_id','battle_uri',
-            'active_battles_uri', 'heartbeat_count']
-fname=livedir + 'fullpilot.json'
-ret = ''
-output = []
-#livedir = '/var/www/html/evevalkyrie/livepilot/'
-
-# Check if outdir works.
-if os.path.isdir(livedir) == False:
-    print "Directory {} does not exist.\neg: /var/www/html/evevalkyrie/livepilot/".format(livedir)
-    sys.exit(165)
-
 # Set option flags.
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
@@ -58,7 +44,20 @@ parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. 
 args = parser.parse_args()
 #statLog.debug(args)
 
+# Declare variables.
+# Start with the components you want to pull from the output.
+headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads', 'kills', 'squad_id','battle_uri',
+            'active_battles_uri', 'heartbeat_count']
+fname = args.directory + 'fullpilot.json'
 livedir = args.directory
+ret = ''
+output = []
+#livedir = '/var/www/html/evevalkyrie/livepilot/'
+
+# Check if outdir works.
+if os.path.isdir(args.directory) == False:
+    print "Directory {} does not exist.\neg: /var/www/html/evevalkyrie/livepilot/".format(livedir)
+    sys.exit(165)
 
 def json_list(fileName):
     try:
