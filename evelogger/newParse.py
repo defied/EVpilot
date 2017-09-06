@@ -37,7 +37,7 @@ import update_pilots
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
 parser.add_argument('-l', '--list', help='list objects and components', default='None')
-parser.add_argument('-o', '--out', help='Where to write out JSON information', action='store_true', required=True)
+parser.add_argument('-o', '--out', help='Where to write out JSON information', required=True)
 parser.add_argument('-d', '--directory', help='Log directory to read', required=True)
 parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. Default is 9.', default='9')
 
@@ -119,6 +119,7 @@ def list_collector():
     return output
 
 def log_files(desc, data):
+    print("Logging Files: {}".format(desc))
     with open("{}{}.json".format(livedir, header), 'w+') as f:
         if 'pilots' in header:
             print("Updating Pilot List")
@@ -136,6 +137,7 @@ while True:
     for fileName in glob.glob(args.directory+"/*.log"):
         print('Ingesting {}'.format(fileName))
         try:
+            print("importing list: {}".format(fileName))
             output = json_list(fileName)
             for header in headlist:
                 if header in output:
@@ -144,7 +146,7 @@ while True:
                     log_files(header, json.dumps(output, indent=4, sort_keys=True))
         except:
             angry=False
-            #print "I hate you."
+            print "I hate you."
         try:
             os.remove(fileName)
         except:
