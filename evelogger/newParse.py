@@ -119,7 +119,7 @@ def list_collector():
 
 def log_files(desc, data):
     print("Logging Files: {}".format(desc))
-    with open("{}{}.json".format(out_dir, header), 'w+') as f:
+    with open("{}{}.json".format(args.out, header), 'w+') as f:
         if 'pilots' in header:
             print("Updating Pilot List")
             update_pilots.update(data, out_dir)
