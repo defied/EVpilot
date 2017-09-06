@@ -48,7 +48,6 @@ args = parser.parse_args()
 # Start with the components you want to pull from the output.
 headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads', 'kills', 'squad_id','battle_uri',
             'active_battles_uri', 'heartbeat_count']
-fname = args.directory
 out_dir = args.out + 'fullpilot.json'
 livedir = args.directory
 ret = ''
@@ -120,7 +119,7 @@ def list_collector():
 
 def log_files(desc, data):
     print("Logging Files: {}".format(desc))
-    with open("{}{}.json".format(livedir, header), 'w+') as f:
+    with open("{}{}.json".format(out_dir, header), 'w+') as f:
         if 'pilots' in header:
             print("Updating Pilot List")
             update_pilots.update(data, out_dir)
