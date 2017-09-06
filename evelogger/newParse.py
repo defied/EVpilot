@@ -37,7 +37,7 @@ import update_pilots
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--pilot', help='Bond data to specific pilot', required=False)
 parser.add_argument('-l', '--list', help='list objects and components', default='None')
-parser.add_argument('-o', '--out', help='Where to write out JSON information', action='store_true', default=False)
+parser.add_argument('-o', '--out', help='Where to write out JSON information', action='store_true', required=True)
 parser.add_argument('-d', '--directory', help='Log directory to read', required=True)
 parser.add_argument('-v', '--hwVersion', help='Specify VMware Hardware Version. Default is 9.', default='9')
 
@@ -48,7 +48,8 @@ args = parser.parse_args()
 # Start with the components you want to pull from the output.
 headlist = ['callsign', 'training', 'pilots', 'files', 'global_events', 'squads', 'kills', 'squad_id','battle_uri',
             'active_battles_uri', 'heartbeat_count']
-fname = args.directory + 'fullpilot.json'
+fname = args.directory
+out_dir = args.out + 'fullpilot.json'
 livedir = args.directory
 ret = ''
 output = []
@@ -121,7 +122,7 @@ def log_files(desc, data):
     with open("{}{}.json".format(livedir, header), 'w+') as f:
         if 'pilots' in header:
             print("Updating Pilot List")
-            update_pilots.update(data, fname)
+            update_pilots.update(data, out_dir)
         f.write(data)
         f.close()
 
