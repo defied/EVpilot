@@ -98,7 +98,7 @@ def cvs_write():
     # create the csv writer object
     csvwriter = csv.writer(file_data)
     count = 0
-    for fi in fi_data:
+    for fi in file_data:
           if count == 0:
                  header = fi.keys()
                  csvwriter.writerow(header)
@@ -119,7 +119,7 @@ def list_collector():
 
 def log_files(desc, data):
     with open("{}{}.json".format(livedir, header), 'w+') as f:
-        if pilots in header:
+        if 'pilots' in header:
             print("Updating Pilot List")
             update_pilots.update(data, fname)
         f.write(data)
@@ -149,7 +149,4 @@ while True:
         except:
             angry=False
             print "Error. Failed to remove file {}".format(fileName)
-
-
-
 
