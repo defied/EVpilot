@@ -20,7 +20,7 @@ echo $(iptables -t nat -L | grep '8443')
 echo "##################"
 
 # Split traffic going through port 8443 out to files in $DIR.
-sslsplit -D  -j $DIR$SPLIT -S ./ -k ca.key -c ca.crt https $HOST 8443 -S $DIR$EVE
+sslsplit -D -S ./ -k ca.key -c ca.crt https $HOST 8443 -S $DIR$EVE
 
 # On teardown, remove redirect rule from iptables.
 iptables -t nat -D PREROUTING -p tcp -d $HIT --dport 443 -j REDIRECT --to-ports 8443
