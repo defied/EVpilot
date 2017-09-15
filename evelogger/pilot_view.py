@@ -107,6 +107,7 @@ curses.start_color()
 try:
     while True:
         main()
+        time.sleep(1)
 except:
     print "\nExiting\n"
     os.system('clear')
