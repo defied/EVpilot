@@ -39,7 +39,7 @@ def main():
             team_1_colormap = 2
     myscreen.addstr(1, 1, "Pilot Squad Display v0.9.5", curses.A_BOLD)
     myscreen.addstr(1, 30, "{}".format(time.asctime()), curses.color_pair(3))
-    #myscreen.addstr(2, 1, "Authors: SuperKev, problah", curses.color_pair(3))
+    #myscreen.addstr(2, 1, "Author: problah", curses.color_pair(3))
     #myscreen.addstr(2, 30, "Created: 9/13/2017", curses.color_pair(3))
     myscreen.addstr(init_count, 1, "Valkyrie", curses.color_pair(team_0_colormap) | curses.A_BOLD)
     init_count = init_count + 1
