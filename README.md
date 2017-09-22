@@ -2,8 +2,9 @@
 
 A utility that will parse through the E:V API and present information to the user in a readable format.
 
-"It is important to read the EULA of the product you are monitoring for any violations committed from the use of this software."
-"This code is purely for educational purposes only and the author claims no responsibility, nor endorses, any activity or enhancement of this product, and cannot be held liable."
+### "It is important to read the EULA of the product you are monitoring for any violations committed from the use of this software."
+
+### "This code is purely for educational purposes only and the author claims no responsibility, nor endorses, any activity or enhancement of this product, and cannot be held liable."
 
 #### You must install sslsplit
 
