@@ -1,6 +1,6 @@
 ## EVpilot
 
-A utility that will parse through the E:V API and present information to the user in a readable format.
+A utility that will parse through the Unreal Engine API json-formatted data and present information to the user in a readable format.
 
 ### "It is important to read the EULA of the product you are monitoring for any violations committed from the use of this software."
 
@@ -10,7 +10,7 @@ A utility that will parse through the E:V API and present information to the use
 
 #### iptables must be running.
 
-For Pilot updating, it's pretty simple:
+For updating, it's pretty simple:
 
 ### ./run_split.sh 
 1) Open a terminal window.
@@ -25,20 +25,19 @@ This will set up the iptable reroute and masking. You will need to run in the di
 
 ### ./newParse.py
 
-This will log and continually parse through live pilot output received from the EV services.
+This will log and continually parse through output received from the UE4 services.
 
-This should now also call for a pilot update.
+This should now also call for an update.
 
 5) Create /to/some/dir/output/ directory.
 
 6) from the git repo directory, run ./newParse.py -d /to/some/dir/eveLogger/ -o /to/some/dir/output/
 
-7) Launch EVE: Valkyrie
+7) Launch your UE4 application.
 
-8) Play your brains out. You should see run_split.sh terminal logging ssl connections.
+8) You should see run_split.sh terminal logging ssl connections.
 
 9) Upon completion, ctrl-c in both terminals to end split and parsing.
 
 10) Collect fullpilot.json from ~/output directory.
 
-11) Mail to defied@deadplanet.net
