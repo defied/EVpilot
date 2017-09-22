@@ -1,10 +1,12 @@
 ## EVpilot
 
-A utility that will parse through the Unreal Engine API json-formatted data and present information to the user in a readable format.
+A utility that will parse through the Unreal Engine API and present information to the user in a readable format.
 
-### "It is important to read the EULA of the product you are monitoring for any violations committed from the use of this software."
+Note: Although this script was built using CCP's EVE: Valkyrie as reference, CCP considers is a violation of their EULA to use this utility on traffic generated from their client/server. Therefore:
 
-### "This code is purely for educational purposes only and the author claims no responsibility, nor endorses, any activity or enhancement of this product, and cannot be held liable."
+#### "It is important to read the EULA of the product you are monitoring for any violations committed from the use of this software."
+
+#### "This code is purely for educational purposes only and the author claims no responsibility, nor endorses, any activity or enhancement of this product, and cannot be held liable."
 
 #### You must install sslsplit
 
@@ -12,7 +14,7 @@ A utility that will parse through the Unreal Engine API json-formatted data and 
 
 For updating, it's pretty simple:
 
-### ./run_split.sh 
+### ./run_split.sh
 1) Open a terminal window.
 
 This will set up the iptable reroute and masking. You will need to run in the directory that has the cert keys (included).
