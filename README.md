@@ -7,7 +7,7 @@ Note: Although this script was built using CCP's EVE: Valkyrie as reference, CCP
 
 #### "It is important to read the EULA of the product you are monitoring for any violations committed from the use of this software."
 
-#### "This code is purely for educational purposes only and the author claims no responsibility, nor endorses, any activity or enhancement of this product, and cannot be held liable."
+#### "This code is purely for educational purposes only and the author claims no responsibility, nor endorses, any activity or enhancement of this product for malicious intent, and cannot be held liable."
 --------------------
 
 #### You must install sslsplit
